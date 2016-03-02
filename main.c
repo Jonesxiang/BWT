@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 	int iflag = 0;
 	int hflag = 0;
 	int eof_index = -1;
-    char * fin_name = NULL;
+	char * fin_name = NULL;
 	while ((i = getopt(argc, argv, "t:r:i:h")) != -1) {
 		switch(i) {
 			case 't':
@@ -55,20 +55,20 @@ int main(int argc, char* argv[])
         char * buf = read_file(fin_name, &len);
         char fout_name[100];
 		if (tflag) {
-			int eof_index = transform(buf, len);
-            sprintf(fout_name, "%s.%d.bwt", fin_name, eof_index);
+			int eof_index = bwt_transform(buf, len);
+			sprintf(fout_name, "%s.%d.bwt", fin_name, eof_index);
 		} else if (eof_index > -1) {
-			reverse(buf, len, eof_index);
-            sprintf(fout_name, "%s.rev", fin_name);
+			bwt_reverse(buf, len, eof_index);
+			sprintf(fout_name, "%s.txt", fin_name);
 		} else {
 			usage();
-            free(buf);
+			free(buf);
 			exit(1);
 		}
-        FILE * fout = open_file(fout_name, "w");
-        fwrite(buf, sizeof(char), len, fout);
-        fclose(fout);
-        free(buf);
+		FILE * fout = open_file(fout_name, "w");
+		fwrite(buf, sizeof(char), len, fout);
+		fclose(fout);
+		free(buf);
 	} else {
 		usage();
 		exit(1);
