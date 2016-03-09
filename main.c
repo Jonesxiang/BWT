@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
 			free(buf);
 			exit(1);
 		}
-		FILE * fout = open_file(fout_name, "w");
+		FILE * fout = open_file(fout_name, "wb");
 		fwrite(buf, sizeof(char), len, fout);
 		fclose(fout);
 		free(buf);
